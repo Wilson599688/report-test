@@ -43,18 +43,13 @@ def load_data(path):
 ###### 選擇金融商品
 st.subheader("選擇金融商品: ")
 # choices = ['台積電: 2022.1.1 至 2024.4.9', '大台指2024.12到期: 2024.1 至 2024.4.9']
-choices = ['台積電: 2022.1.1 至 2024.4.9', '大台指期貨2024.12到期: 2023.12 至 2024.4.11', '小台指期貨2024.12到期: 2023.12 至 2024.4.11', '英業達2020.1.2 至 2024.4.12', '堤維西2020.1.2 至 2024.4.12']
+choices = ['台積電: 2022.1.1 至 2024.4.9', '台泥: 2021.1.1 至 2024.1.31', '大台指期貨2024.12到期: 2023.12 至 2024.4.11', '小台指期貨2024.12到期: 2023.12 至 2024.4.11', '英業達2020.1.2 至 2024.4.12', '堤維西2020.1.2 至 2024.4.12']
 choice = st.selectbox('選擇金融商品', choices, index=0)
 ##### 读取Pickle文件
 if choice == '台積電: 2022.1.1 至 2024.4.9':
     df_original = load_data('kbars_2330_2022-01-01-2024-04-09.pkl')
-    # df_original = load_data('kbars_2330_2022-01-01-2024-04-09.pkl')
-    # df_original = load_data('kbars_2330_2022-01-01-2022-11-18.pkl')  
-    # df_original = pd.read_pickle('kbars_2330_2022-01-01-2022-11-18.pkl')
-    #df.columns  ## Index(['Unnamed: 0', 'time', 'open', 'low', 'high', 'close', 'volume','amount'], dtype='object')
-    # df_original = df_original.drop('Unnamed: 0',axis=1)
-# if choice == '大台指2024.12到期: 2024.1 至 2024.4.9':
-#     df_original = load_data('kbars_TXF202412_2024-01-01-2024-04-09.pkl')  
+if choice == '台泥: 2021.1.1 至 2024.1.31':
+    df_original = load_data('kbars_1101_2021-01-01-2024-01-31.pkl') 
 if choice == '大台指期貨2024.12到期: 2023.12 至 2024.4.11':
     df_original = load_data('kbars_TXF202412_2023-12-21-2024-04-11.pkl')
 if choice == '小台指期貨2024.12到期: 2023.12 至 2024.4.11':
@@ -72,6 +67,9 @@ st.subheader("選擇資料時間區間")
 if choice == '台積電: 2022.1.1 至 2024.4.9':
     start_date = st.text_input('輸入開始日期(日期格式: 2022-01-01), 區間:2022-01-01 至 2024-04-09', '2022-01-01')
     end_date = st.text_input('輸入結束日期 (日期格式: 2024-04-09), 區間:2022-01-01 至 2024-04-09', '2024-04-09')
+if choice == '台泥: 2021.1.1 至 2024.1.31':
+    start_date = st.text_input('輸入開始日期(日期格式: 2021-01-01), 區間:2021-01-01 至 2024-01-31', '2021-01-01')
+    end_date = st.text_input('輸入結束日期 (日期格式: 2024-01-31), 區間:2021-01-01 至 2024-01-31', '2024-01-31')
 if choice == '大台指期貨2024.12到期: 2023.12 至 2024.4.11':
     start_date = st.text_input('輸入開始日期(日期格式: 2023-12-21), 區間:2023-12-21 至 2024-04-11', '2023-12-21')
     end_date = st.text_input('輸入結束日期 (日期格式: 2024-04-11), 區間:2023-12-21 至 2024-04-11', '2024-04-11')
@@ -739,6 +737,9 @@ if choice == '台積電: 2022.1.1 至 2024.4.9':
     # else:
     #     報酬風險比='資料不足無法計算'
 
+if choice == '台泥: 2021.1.1 至 2024.1.31':
+    交易總盈虧,平均每次盈虧,平均投資報酬率,平均獲利_只看獲利的,平均虧損_只看虧損的,勝率,最大連續虧損,最大盈虧回落_MDD,報酬風險比 = 計算績效_股票()
+
 if choice == '大台指期貨2024.12到期: 2023.12 至 2024.4.11':
     交易總盈虧,平均每次盈虧,平均投資報酬率,平均獲利_只看獲利的,平均虧損_只看虧損的,勝率,最大連續虧損,最大盈虧回落_MDD,報酬風險比 = 計算績效_大台指期貨()
 
@@ -846,7 +847,8 @@ if choice == '英業達2020.1.2 至 2024.4.12':
     OrderRecord.GeneratorProfitChart(choice='stock',StrategyName='MA')
 if choice == '堤維西2020.1.2 至 2024.4.12':
     OrderRecord.GeneratorProfitChart(choice='stock',StrategyName='MA')
-
+if choice == '台泥2021.1.1 至 2024.1.31':
+    OrderRecord.GeneratorProfitChart(choice='stock',StrategyName='MA')
     
 
 # matplotlib.rcParams['font.family'] = 'Noto Sans CJK JP'
